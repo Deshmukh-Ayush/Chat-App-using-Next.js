@@ -28,10 +28,10 @@ export const signInWithGoogle = async () => {
     }
 };
 
-export const logOut = async () => {
-    try {
-        await signOut(auth)
-    } catch (error) {
-        throw error.message;
-    }
-}
+// export const logOut = async () => {
+//     try {
+//         await signOut(auth)
+//     } catch (error) {
+//         throw error.message;
+//     }
+// }

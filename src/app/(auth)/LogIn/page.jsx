@@ -7,7 +7,7 @@ import { signInWithEmail, signInWithGoogle } from '../lib/authHelpers';
 import Link from 'next/link';
 
 
-const login = () => {
+const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -59,7 +59,7 @@ const login = () => {
         <button type='submit' className='w-60 py-3 bg-white text-black rounded-3xl'>Sign In</button>
         <button onClick={handleGoogleSignIn} className='w-60 py-3 bg-white text-black rounded-3xl'>Sign In with Google</button>
         
-        <Link href="/LogIn">Dont have an Account? Sign In</Link>
+        <Link href="/SignUp">Dont have an Account? Sign Up</Link>
       </form>
   
   </div>
@@ -68,4 +68,4 @@ const login = () => {
 
 
 
-export default login
+export default LogIn

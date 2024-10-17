@@ -5,9 +5,9 @@ import { useAuth } from "../hooks/useAuth";
 import { doc, setDoc } from "firebase/firestore"
 import { db } from "../firebase";
 import { useRouter } from "next/navigation";
-import LogoutButton from "../components/LogoutButton";
+// import LogoutButton from "../components/LogoutButton";
 
-const details = () => {
+const Details = () => {
   // const { user, loading } = useAuth(true); // true ensures the redirect
 
   // if (loading) return <p>Loading...</p>; // Display a loading state while checking authentication
@@ -113,4 +113,4 @@ const details = () => {
   );
 };
 
-export default details;
+export default Details;

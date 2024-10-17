@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { signUpWithEmail, signInWithGoogle } from '../lib/authHelpers';
 import Link from 'next/link';
 
-const signUp = () => {
+const SignUp = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -65,4 +65,4 @@ const signUp = () => {
   )
 }
 
-export default signUp
+export default SignUp
