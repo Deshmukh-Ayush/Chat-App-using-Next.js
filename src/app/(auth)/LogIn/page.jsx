@@ -1,16 +1,71 @@
+"use client"
+
 import React from 'react'
-import Link from 'next/link'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { signInWithEmail, signInWithGoogle } from '../lib/authHelpers';
+import Link from 'next/link';
+
 
 const login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("")
+    try {
+      await signInWithEmail(email, password)
+      router.push("/details")
+    } catch (error) {
+      setError(error)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+      router.push("/");  // Redirect to homepage
+    } catch (error) {
+      setError(error);
+    }
+  };
   return (
-    <>
-        <div className='w-full h-screen flex items-center justify-center flex-col'>
-          <h1>Here Log In yourself</h1>
-          <h2>Don&apos;t forget to log in!</h2>
-          <Link className="flex select-none items-center gap-2 rounded-lg py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" href="/SignUp">Sign Up</Link>
-        </div>
-    </>
+
+
+  <div className='w-full h-screen flex justify-center items-center flex-col'>
+      <h2 className='text-5xl mb-5'>Sign In page</h2>
+      {error && <p>{error}</p>}
+
+      <form onSubmit={handleSubmit} className='flex items-center justify-center flex-col gap-2'>
+        <input 
+          type="text"
+          placeholder='Enter your email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className='text-white bg-transparent w-80 px-2 py-3 rounded-3xl border-white border-2'
+        />
+        <input 
+          type="password"
+          placeholder='Enter your Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className='text-white bg-transparent w-80 px-2 py-3 rounded-3xl border-white border-2'
+        />
+
+        <button type='submit' className='w-60 py-3 bg-white text-black rounded-3xl'>Sign In</button>
+        <button onClick={handleGoogleSignIn} className='w-60 py-3 bg-white text-black rounded-3xl'>Sign In with Google</button>
+        
+        <Link href="/LogIn">Dont have an Account? Sign In</Link>
+      </form>
+  
+  </div>
   )
 }
+
+
 
 export default login
