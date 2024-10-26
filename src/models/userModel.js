@@ -1,6 +1,6 @@
 // models/userModel.js
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { firestore } from "../lib/firebase";
+import { db } from "@/lib/firebase";
 
 // Save user details to Firestore
 export const saveUserDetails = async (uid, details) => {
@@ -10,7 +10,12 @@ export const saveUserDetails = async (uid, details) => {
 
 // Fetch user details from Firestore
 export const getUserDetails = async (uid) => {
-  const userRef = doc(firestore, "users", uid);
+  const userRef = doc(db, "users", uid);
   const docSnap = await getDoc(userRef);
-  return docSnap.exists() ? docSnap.data() : null;
+  if (docSnap.exists()) {
+    return docSnap.data(); // Return the user data
+  } else {
+    console.log("No such document!");
+    return null; // Handle the case where the document does not exist
+  }
 };

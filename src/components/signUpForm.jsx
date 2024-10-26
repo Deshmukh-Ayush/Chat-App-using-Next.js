@@ -13,20 +13,20 @@ const SignUpForm = () => {
 
   const handleEmailSignUp = async (e) => {
     e.preventDefault();
-    setError(null); // Clear any existing errors before submission
+    setError(null);
 
     try {
       await signUpWithEmail(email, password);
       router.push("/details"); 
     } catch (error) {
-      setError(error.message || "An error occurred during signup."); // Handle error message more gracefully
+      setError(error.message || "An error occurred during signup.");
     }
   };
 
   const handleGoogleSignUp = async () => {
     try {
       await signUpWithGoogle();
-      router.push("/auth/details"); 
+      router.push("/details"); 
     } catch (error) {
       setError(error.message || "An error occurred during Google signup."); 
     }
@@ -59,7 +59,7 @@ const SignUpForm = () => {
 
         <button
           onClick={handleGoogleSignUp}
-          className="mt-2 w-60 py-3 bg-white text-black rounded-3XL"
+          className="mt-2 w-60 py-3 bg-white text-black rounded"
         >
           Sign Up with Google
         </button>

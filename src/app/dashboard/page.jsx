@@ -9,19 +9,23 @@ import { useRouter } from "next/navigation";
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [details, setDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // Fetch the authenticated user's details
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       const currentUser = auth.currentUser;
-      if (currentUser) {
-        setUser(currentUser);
-        const userDetails = await getUserDetails(currentUser.uid);
-        setDetails(userDetails);
-      } else {
-        router.push("/login"); // Redirect to login if not authenticated
-      }
+      auth.onAuthStateChanged(async (currentUser) => {
+        if (currentUser) {
+          setUser(currentUser);
+          const userDetails = await getUserDetails(currentUser.uid);
+          setDetails(userDetails);
+        } else {
+          router.push("/login");
+        }
+        setLoading(false); 
+      });
     };
 
     fetchUserDetails();
@@ -30,8 +34,10 @@ const DashboardPage = () => {
   // Handle user logout
   const handleLogout = async () => {
     await auth.signOut();
-    router.push("/auth/login");
+    router.push("/login");
   };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -44,7 +50,7 @@ const DashboardPage = () => {
               <p><strong>Name:</strong> {details.name}</p>
               <p><strong>Username:</strong> {details.username}</p>
               <p><strong>Age:</strong> {details.age}</p>
-              <p><strong>Contact:</strong> {details.contact}</p>
+              <p><strong>Contact:</strong> {details.contactNumber}</p>
             </>
           ) : (
             <p>Loading details...</p>
