@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useState } from "react";
 import { useRouter } from "next/navigation"
 import { signUpWithEmail, signUpWithGoogle } from "@/controllers/authController";
@@ -55,7 +54,7 @@ const SignUpForm = () => {
 
         <button type="submit" className="w-60 py-3 bg-white text-black rounded-3xl">
           Sign Up
-        </button>
+        </button> 
 
         <button
           onClick={handleGoogleSignUp}
